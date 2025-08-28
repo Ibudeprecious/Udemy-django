@@ -5,7 +5,7 @@ from django.urls import reverse
 
 # Create your views here.
 
-posts = articles = [
+posts = [
     {
         "id": 1,
         "title": "Quantum Catalysts",
@@ -18,14 +18,13 @@ posts = articles = [
     },
     {
         "id": 3,
-        "title": "AI-Driven Reaction Design",
+        "title": "AI-Driven Reaction design",
         "content": "AI models now predict optimal reaction pathways in real-time, allowing chemists to synthesize complex compounds with zero trial and error."
     }
 ]
-
+# posts = []
 
 def home(request):
-    reverse(home)
     html = ''
     for post in posts:
         html += f'''
@@ -37,7 +36,7 @@ def home(request):
         
         '''
     html += "<h1> Proudly coded by Ibude 😉 </h1>"
-    return HttpResponse(html)
+    return render(request,'posts/index.html', {'posts': posts})
 
 def post(request, id):
     valid_id = False
@@ -47,16 +46,7 @@ def post(request, id):
             valid_id = True
             break
     if valid_id:
-        html = ''
-        html += f''' 
-            <h1>{post_dict['id']} - {post_dict['title']}</h1>
-            <p>{post_dict['content']}</p>
-            <P>Amazing 😍. Coded by Ibude 😉<p>
-        
-        '''
-        return HttpResponse(html)
+        return render(request,'posts/post.html',{'post_dict':post_dict})
     else:
-        return HttpResponseNotFound("<h1> We dont have a post withh that id </h1>")
+        return HttpResponseNotFound("<h1> We dont have a post with that id </h1>")
 
-def redirect(request, id):
-    return HttpResponseRedirect(reverse('post', args=[id]))
