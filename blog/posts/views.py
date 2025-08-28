@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-from django.urls import reverse
+from django.http import Http404
 
 
 # Create your views here.
@@ -8,20 +7,26 @@ from django.urls import reverse
 posts = [
     {
         "id": 1,
-        "title": "Quantum Catalysts",
-        "content": "Researchers have developed catalysts that manipulate quantum states of molecules, reducing reaction times from hours to milliseconds."
+        "title": "Accountability in Reading",
+        "content": "Keeping track of the books you’ve committed to read ensures growth and discipline. Accountability partners can help you stay consistent and finish what you start."
     },
     {
         "id": 2,
-        "title": "Self-Healing Polymers",
-        "content": "Next-gen polymers can rebuild broken chemical bonds when exposed to light, making plastics virtually immortal and recyclable forever."
+        "title": "Accountability in Skill Development",
+        "content": "Learning a skill requires practice and feedback. By sharing progress with a mentor or group, you create accountability that drives you to keep improving."
     },
     {
         "id": 3,
-        "title": "AI-Driven Reaction design",
-        "content": "AI models now predict optimal reaction pathways in real-time, allowing chemists to synthesize complex compounds with zero trial and error."
+        "title": "Accountability in Time Management",
+        "content": "Time is a resource you can’t recover once lost. Using schedules, deadlines, or accountability buddies helps prevent procrastination and keeps you focused."
+    },
+    {
+        "id": 4,
+        "title": "Accountability in Financial Management",
+        "content": "Tracking income, expenses, and savings with transparency creates financial discipline. Accountability ensures you avoid waste and make wiser money decisions."
     }
 ]
+
 # posts = []
 
 def home(request):
@@ -36,7 +41,7 @@ def home(request):
         
         '''
     html += "<h1> Proudly coded by Ibude 😉 </h1>"
-    return render(request,'posts/index.html', {'posts': posts})
+    return render(request,'posts/home.html', {'posts': posts})
 
 def post(request, id):
     valid_id = False
@@ -48,5 +53,5 @@ def post(request, id):
     if valid_id:
         return render(request,'posts/post.html',{'post_dict':post_dict})
     else:
-        return HttpResponseNotFound("<h1> We dont have a post with that id </h1>")
+        raise Http404()
 
