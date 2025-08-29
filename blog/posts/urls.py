@@ -3,5 +3,5 @@ from django.urls import path
 
 urlpatterns = [
     path('home', views.home, name='home'),
-    path('<int:id>/', views.post, name='post')
+    path('<int:id>/', views.post_page, name='post')
 ]
