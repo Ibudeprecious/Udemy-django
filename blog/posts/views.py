@@ -1,31 +1,21 @@
 from django.shortcuts import render
-from django.http import Http404
+from django.http import HttpResponseRedirect, HttpResponse
 from .models import post
+from .models import Form
 from django.shortcuts import get_object_or_404
+from .forms import Arandomform
 # Create your views here.
-
-all_posts = [
-    {
-        "title": "Accountability in Reading",
-        "content": "Keeping track of the books you’ve committed to read ensures growth and discipline. Accountability partners can help you stay consistent and finish what you start."
-    },
-    {
-        "title": "Accountability in Skill Development",
-        "content": "Learning a skill requires practice and feedback. By sharing progress with a mentor or group, you create accountability that drives you to keep improving."
-    },
-    {
-        "title": "Accountability in Time Management",
-        "content": "Time is a resource you can’t recover once lost. Using schedules, deadlines, or accountability buddies helps prevent procrastination and keeps you focused."
-    },
-    {
-        "title": "Accountability in Financial Management",
-        "content": "Tracking income, expenses, and savings with transparency creates financial discipline. Accountability ensures you avoid waste and make wiser money decisions."
-    }
-]
 
 def home(request):
     db_post = post.objects.all()
-    return render(request,'posts/home.html', {'posts': db_post})
+    if request.method == 'POST':
+        form = Arandomform(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Form Submitted')
+    else:
+        form = Arandomform()
+    return render(request,'posts/home.html', {'posts': db_post, 'form':form})
 
 def post_page(request, id):
     
