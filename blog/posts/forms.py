@@ -22,5 +22,3 @@ class Arandomform(forms.ModelForm):
             'about': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Tell us about yourself'})
         }
        
-        
-        
