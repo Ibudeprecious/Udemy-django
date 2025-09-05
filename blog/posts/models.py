@@ -9,8 +9,9 @@ class post(models.Model):
     def __str__(self):
         return self.title
 
-class Form(models.Model):
-     name = models.CharField(max_length=50)
-     email = models.EmailField()
-     phone_number = models.IntegerField()
-     about = models.TextField()
+class comment(models.Model):
+    comment = models.TextField()
+    post = models.ForeignKey(post,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.comment[:13] + "..." if len(self.comment) > 13 else self.comment

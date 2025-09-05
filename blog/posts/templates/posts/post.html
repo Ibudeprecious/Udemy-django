@@ -18,12 +18,14 @@
                 <hr class="border border-dark border-1 opacity-50">
                 <p>{{post_dict.content}}</p>
             </div>
-            <h2>Comments</h2>
+            <!-- <h2>Comments</h2> -->
             <form method='POST'>
-                <textarea name="" class="form-control" id=""></textarea>
+                {% csrf_token %}
+                {{comment_form}}
                 <button type='submit' class='btn btn-primary'>Comment</button>
             </form>
-            <h2 class='bg-danger'>Login To Comment</h2>
+            
+            <!-- <h2 class='bg-danger'>Login To Comment</h2> -->
           
             <div class="card m-2">
               

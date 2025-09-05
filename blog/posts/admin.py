@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models  import post
+from .models  import post, comment
 # Register your models here.
 
 @admin.register(post)
@@ -8,3 +8,5 @@ class postAdmin(admin.ModelAdmin):
     list_display_links = ['id', 'title']
     list_filter = ['date_time']
     search_fields = ['title', 'content']
+
+admin.site.register(comment)
